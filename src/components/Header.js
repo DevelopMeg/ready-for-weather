@@ -1,11 +1,14 @@
 import React, { useContext, useState, useEffect } from "react";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { DataFetchContext } from "context/DataFetchContext";
 
 const Header = () => {
   const history = useHistory();
+  const location = useLocation();
+
+  const path = location.pathname;
 
   const { getPollutionData } = useContext(DataFetchContext);
 
@@ -25,7 +28,9 @@ const Header = () => {
   return (
     <header>
       <h1>ready for weather</h1>
-      <button onClick={handleGetPollution}>air pollution</button>
+      {path === "/weather" ? (
+        <button onClick={handleGetPollution}>air pollution</button>
+      ) : null}
     </header>
   );
 };
