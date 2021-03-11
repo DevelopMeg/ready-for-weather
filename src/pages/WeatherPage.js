@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 
 import SearchBar from "components/SearchBar";
-import WeatherDayInfo from "components/WeatherDayInfo";
-import WeatherWeekInfo from "components/WeatherWeekInfo";
+import WeatherInfo from "components/WeatherInfo";
 import SavedSearches from "components/SavedSearches";
 
 import { DataFetchContext } from "context/DataFetchContext";
@@ -10,19 +9,20 @@ import { DataFetchContext } from "context/DataFetchContext";
 const WeatherPage = () => {
   const { weatherInfo } = useContext(DataFetchContext);
 
-  const loading = weatherInfo.loadingWeather;
+  const { loadingWeather, errorWeather } = weatherInfo;
 
   return (
     <>
       <SearchBar />
-      {loading ? (
+      {loadingWeather ? (
         "Loading..."
-      ) : (
+      ) : !errorWeather ? (
         <>
-          <WeatherDayInfo />
-          <WeatherWeekInfo />
+          <WeatherInfo />
           <SavedSearches />
         </>
+      ) : (
+        <p>data download error</p>
       )}
     </>
   );
