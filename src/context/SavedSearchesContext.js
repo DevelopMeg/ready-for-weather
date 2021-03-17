@@ -2,7 +2,11 @@ import React, { createContext, useReducer, useContext, useEffect } from "react";
 
 import { nanoid } from "nanoid";
 
-import { SAVE_SEARCH, DELETE_SEARCH } from "reducers/types";
+import {
+  SAVE_SEARCH,
+  DELETE_SEARCH,
+  SET_HEIGHT_SAVED_SEARCHES,
+} from "reducers/types";
 import { savedSearchesReducer } from "reducers/savedSearchesReducer";
 
 import { DataFetchContext } from "context/DataFetchContext";
@@ -15,6 +19,7 @@ const SavedSearchesProvider = ({ children }) => {
 
   const initialState = {
     savedSearches: [],
+    heightSavedSearches: "",
   };
 
   const localData = JSON.parse(localStorage.getItem("savedSearches"));
@@ -43,12 +48,17 @@ const SavedSearchesProvider = ({ children }) => {
     dispatch({ type: DELETE_SEARCH, payload: idDeleteSearch });
   };
 
+  const setHeightSavedSearches = (height) => {
+    dispatch({ type: SET_HEIGHT_SAVED_SEARCHES, payload: height });
+  };
+
   return (
     <SavedSearchesContext.Provider
       value={{
         savedSearches: state.savedSearches,
         saveSearch,
         deleteSearch,
+        setHeightSavedSearches,
       }}
     >
       {children}

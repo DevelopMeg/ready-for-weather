@@ -1,4 +1,8 @@
-import { SAVE_SEARCH, DELETE_SEARCH } from "reducers/types";
+import {
+  SAVE_SEARCH,
+  DELETE_SEARCH,
+  SET_HEIGHT_SAVED_SEARCHES,
+} from "reducers/types";
 
 export const savedSearchesReducer = (state, action) => {
   switch (action.type) {
@@ -14,6 +18,12 @@ export const savedSearchesReducer = (state, action) => {
         savedSearches: state.savedSearches.filter((search) => {
           return search.id !== action.payload;
         }),
+      };
+
+    case SET_HEIGHT_SAVED_SEARCHES:
+      return {
+        ...state,
+        heightSavedSearches: action.payload,
       };
 
     default:
