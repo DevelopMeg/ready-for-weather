@@ -4,24 +4,41 @@ import Header from "components/Header";
 import RootRoutes from "pages/RootRoutes";
 import Footer from "components/Footer";
 
-import { BrowserRouter } from "react-router-dom";
-
 import DataFetchProvider from "context/DataFetchContext";
 import SavedSearchesProvider from "context/SavedSearchesContext";
 
+import { BrowserRouter } from "react-router-dom";
+
+import styled from "styled-components";
+import { GlobalStyles } from "components/GlobalStyles";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const Main = styled.main`
+  flex-grow: 1;
+  display: flex;
+`;
+
 const App = () => {
   return (
-    <DataFetchProvider>
-      <SavedSearchesProvider>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
-          <Header />
-          <main>
-            <RootRoutes />
-          </main>
-          <Footer />
-        </BrowserRouter>
-      </SavedSearchesProvider>
-    </DataFetchProvider>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <DataFetchProvider>
+        <SavedSearchesProvider>
+          <GlobalStyles />
+          <Wrapper>
+            <Header />
+            <Main>
+              <RootRoutes />
+            </Main>
+            <Footer />
+          </Wrapper>
+        </SavedSearchesProvider>
+      </DataFetchProvider>
+    </BrowserRouter>
   );
 };
 
