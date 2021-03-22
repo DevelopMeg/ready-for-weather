@@ -1,5 +1,33 @@
 import React, { useState, useEffect } from "react";
 
+import styled from "styled-components";
+
+import { FontAwesomeIcon } from "../../node_modules/@fortawesome/react-fontawesome";
+import {
+  faCalendarAlt,
+  faClock,
+} from "../../node_modules/@fortawesome/free-solid-svg-icons";
+
+const SectionDateTime = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ffe197;
+
+  @media (min-width: 1024px) {
+    flex-basis: 60%;
+  }
+`;
+
+const DateTimeInfo = styled.p`
+  font-size: 2rem;
+`;
+
+const DateTimeInfoText = styled.span`
+  margin-left: 12px;
+  display: inline-block;
+`;
+
 const DateTimeBox = () => {
   const date = new Date();
 
@@ -31,10 +59,16 @@ const DateTimeBox = () => {
   }, []);
 
   return (
-    <div>
-      <p>{dateInfo}</p>
-      <p>{timeInfo}</p>
-    </div>
+    <SectionDateTime>
+      <DateTimeInfo>
+        <FontAwesomeIcon icon={faCalendarAlt} />
+        <DateTimeInfoText>{dateInfo}</DateTimeInfoText>
+      </DateTimeInfo>
+      <DateTimeInfo>
+        <FontAwesomeIcon icon={faClock} />
+        <DateTimeInfoText>{timeInfo}</DateTimeInfoText>
+      </DateTimeInfo>
+    </SectionDateTime>
   );
 };
 
