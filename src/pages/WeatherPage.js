@@ -4,16 +4,20 @@ import SearchBar from "components/SearchBar";
 import Weather from "components/Weather";
 import SavedSearches from "components/SavedSearches";
 import LoaderSun from "components/LoaderSun";
-import Svg from "components/Svg";
 
 import { DataFetchContext } from "context/DataFetchContext";
 
 import styled from "styled-components";
 import { ErrorDownloadData } from "components/GlobalStyles";
 
+import imageAside from "assets/image-aside.jpg";
+
 const SectionWeatherPage = styled.section`
-  padding-bottom: 20px;
   width: 100%;
+
+  @media (min-width: 1024px) {
+    padding-bottom: 20px;
+  }
 `;
 
 const WeatherPageBox = styled.div`
@@ -27,7 +31,23 @@ const WeatherPageBox = styled.div`
   }
 
   @media (min-width: 1900px) {
-    width: 85%;
+    width: 80%;
+  }
+`;
+
+const ImageAside = styled.aside`
+  background-image: url(${imageAside});
+  background-size: cover;
+  background-position: 95%;
+  height: 100px;
+
+  @media (min-width: 1024px) {
+    flex-basis: 10%;
+    height: auto;
+  }
+
+  @media (min-width: 1100px) {
+    flex-basis: 15%;
   }
 `;
 
@@ -43,7 +63,7 @@ const WeatherPage = () => {
         <LoaderSun />
       ) : !errorWeather ? (
         <WeatherPageBox>
-          <Svg></Svg>
+          <ImageAside />
           <Weather />
           <SavedSearches />
         </WeatherPageBox>
