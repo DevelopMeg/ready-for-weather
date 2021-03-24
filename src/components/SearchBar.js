@@ -26,10 +26,6 @@ const SearchForm = styled.form`
   @media (min-width: 1400px) {
     width: ${(props) => (props.page === "weather-page" ? 50 : 100)}%;
   }
-
-  @media (min-width: 1600px) {
-    width: ${(props) => (props.page === "weather-page" ? 45 : 100)}%;
-  }
 `;
 
 const SearchInput = styled.input`
@@ -86,11 +82,10 @@ const SearchBar = ({ page }) => {
   const { geographicData, getWeatherData, getGeographicData } = useContext(
     DataFetchContext
   );
+  const { latitude, longitude, errorGeographicData } = geographicData;
 
   const [valueSearchCity, setValueSearchCity] = useState("");
   const [statusSearch, setStatusSearch] = useState(false);
-
-  const { latitude, longitude, errorGeographicData } = geographicData;
 
   useEffect(() => {
     if (errorGeographicData) {

@@ -49,7 +49,7 @@ export const ErrorDownloadData = styled.p`
 `;
 
 export const WeatherDescription = styled.h5`
-  margin: 30px auto;
+  margin: 35px auto;
   position: relative;
   text-transform: uppercase;
 

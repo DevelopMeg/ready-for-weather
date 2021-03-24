@@ -57,8 +57,8 @@ const OpenPollutionBtnText = styled.span`
 
 const Header = () => {
   const history = useHistory();
-  const location = useLocation();
 
+  const location = useLocation();
   const path = location.pathname;
 
   const { getPollutionData } = useContext(DataFetchContext);
