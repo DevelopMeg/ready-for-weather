@@ -4,6 +4,14 @@ import WeatherDayOfWeekInfo from "components/WeatherDayOfWeekInfo";
 
 import { DataFetchContext } from "context/DataFetchContext";
 
+import styled from "styled-components";
+
+const SectionWeatherWeek = styled.section`
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+`;
+
 const WeatherWeekInfo = () => {
   const { weatherInfo } = useContext(DataFetchContext);
 
@@ -13,7 +21,7 @@ const WeatherWeekInfo = () => {
     return <WeatherDayOfWeekInfo key={day.dt} dayOfWeek={day} />;
   });
 
-  return <section>{weatherWeek}</section>;
+  return <SectionWeatherWeek>{weatherWeek}</SectionWeatherWeek>;
 };
 
 export default WeatherWeekInfo;
