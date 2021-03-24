@@ -5,7 +5,9 @@ import { nanoid } from "nanoid";
 import {
   SAVE_SEARCH,
   DELETE_SEARCH,
-  SET_HEIGHT_SAVED_SEARCHES,
+  SET_LIST_POSITION_TO_TOP,
+  SET_LIST_POSITION_TO_BOTTOM,
+  SET_LIST_POSITION_BY_DELETE_ITEM,
 } from "reducers/types";
 import { savedSearchesReducer } from "reducers/savedSearchesReducer";
 
@@ -19,7 +21,7 @@ const SavedSearchesProvider = ({ children }) => {
 
   const initialState = {
     savedSearches: [],
-    heightSavedSearches: "",
+    searchListPosition: 0,
   };
 
   const localData = JSON.parse(localStorage.getItem("savedSearches"));
@@ -48,17 +50,28 @@ const SavedSearchesProvider = ({ children }) => {
     dispatch({ type: DELETE_SEARCH, payload: idDeleteSearch });
   };
 
-  const setHeightSavedSearches = (height) => {
-    dispatch({ type: SET_HEIGHT_SAVED_SEARCHES, payload: height });
+  const setListPositionToTop = () => {
+    dispatch({ type: SET_LIST_POSITION_TO_TOP });
+  };
+
+  const setListPositionToBottom = () => {
+    dispatch({ type: SET_LIST_POSITION_TO_BOTTOM });
+  };
+
+  const setListPositionByDeleteItem = () => {
+    dispatch({ type: SET_LIST_POSITION_BY_DELETE_ITEM });
   };
 
   return (
     <SavedSearchesContext.Provider
       value={{
         savedSearches: state.savedSearches,
+        searchListPosition: state.searchListPosition,
         saveSearch,
         deleteSearch,
-        setHeightSavedSearches,
+        setListPositionToTop,
+        setListPositionToBottom,
+        setListPositionByDeleteItem,
       }}
     >
       {children}

@@ -1,7 +1,9 @@
 import {
   SAVE_SEARCH,
   DELETE_SEARCH,
-  SET_HEIGHT_SAVED_SEARCHES,
+  SET_LIST_POSITION_TO_TOP,
+  SET_LIST_POSITION_TO_BOTTOM,
+  SET_LIST_POSITION_BY_DELETE_ITEM,
 } from "reducers/types";
 
 export const savedSearchesReducer = (state, action) => {
@@ -20,10 +22,17 @@ export const savedSearchesReducer = (state, action) => {
         }),
       };
 
-    case SET_HEIGHT_SAVED_SEARCHES:
+    case SET_LIST_POSITION_TO_TOP:
+    case SET_LIST_POSITION_BY_DELETE_ITEM:
       return {
         ...state,
-        heightSavedSearches: action.payload,
+        searchListPosition: state.searchListPosition + 151,
+      };
+
+    case SET_LIST_POSITION_TO_BOTTOM:
+      return {
+        ...state,
+        searchListPosition: state.searchListPosition - 151,
       };
 
     default:
