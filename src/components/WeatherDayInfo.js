@@ -47,15 +47,25 @@ const SearchCity = styled.h3`
   margin-top: 36px;
   text-align: center;
   text-transform: uppercase;
-  font-size: 2.4rem;
+  font-size: 2.8rem;
 
   @media (min-width: 1024px) {
     margin: 30px 0;
     flex-basis: 100%;
   }
 
-  @media (min-width: 1400px) {
-    font-size: 2.8rem;
+  @media (min-width: 1100px) {
+    font-size: 3.3rem;
+  }
+`;
+
+const CountryCity = styled.span`
+  margin-top: 4px;
+  display: block;
+  font-size: 1.5rem;
+
+  @media (min-width: 1100px) {
+    font-size: 1.6rem;
   }
 `;
 
@@ -117,7 +127,7 @@ const WeatherDescriptionDay = styled(WeatherDescription)`
 const WeatherDayInfo = () => {
   const { geographicData, weatherInfo } = useContext(DataFetchContext);
 
-  const searchCity = geographicData.searchCity;
+  const { searchCity, countryCity } = geographicData;
 
   const { current, alerts } = weatherInfo.weather;
 
@@ -141,7 +151,9 @@ const WeatherDayInfo = () => {
     <SectionWeatherDay alertsWeather={alerts}>
       <DateTimeBox />
 
-      <SearchCity>{searchCity}</SearchCity>
+      <SearchCity>
+        {searchCity} <CountryCity>{countryCity}</CountryCity>
+      </SearchCity>
 
       <WeatherInfoBox>
         <CurrentTemp>{Math.floor(temp)} &#8451;</CurrentTemp>

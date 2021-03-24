@@ -36,14 +36,14 @@ const WeatherPageBox = styled.div`
 `;
 
 const ImageAside = styled.aside`
+  height: 100px;
   background-image: url(${imageAside});
   background-size: cover;
   background-position: 95%;
-  height: 100px;
 
   @media (min-width: 1024px) {
-    flex-basis: 10%;
     height: auto;
+    flex-basis: 10%;
   }
 
   @media (min-width: 1100px) {

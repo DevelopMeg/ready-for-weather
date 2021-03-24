@@ -24,9 +24,13 @@ export const dataFetchReducer = (state, action) => {
       return {
         ...state,
         weatherInfo: {
-          weather: action.payload,
+          weather: action.payload.weather,
           loadingWeather: false,
           errorWeather: false,
+        },
+        geographicData: {
+          ...state.geographicData,
+          countryCity: action.payload.country,
         },
       };
 

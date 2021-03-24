@@ -93,17 +93,23 @@ const DataFetchProvider = ({ children }) => {
   };
 
   const getWeatherData = async () => {
-    const url = `http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`;
+    const urlWeather = `http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`;
+
+    const urlCountryCity = `https://us1.locationiq.com/v1/reverse.php?key=${process.env.REACT_APP_API_LOCATION_KEY}&lat=${latitude}&lon=${longitude}&format=json`;
 
     dispatch({ type: GET_WEATHER_LOADING });
 
     try {
-      const response = await fetch(url);
-      const data = await response.json();
+      const [weather, countryCity] = await Promise.all([
+        fetch(urlWeather).then((response) => response.json()),
+        fetch(urlCountryCity).then((response) => response.json()),
+      ]);
 
-      dispatch({ type: GET_WEATHER, payload: data });
+      const country = countryCity.address.country;
+
+      dispatch({ type: GET_WEATHER, payload: { weather, country } });
     } catch (err) {
-      dispatch({ type: GET_WEATHER_ERROR });
+      dispatch({ type: GET_WEATHER_ERROR, payload: err });
     }
   };
 
@@ -152,28 +158,3 @@ const DataFetchProvider = ({ children }) => {
 };
 
 export default DataFetchProvider;
-
-// const getWeatherData = async () => {
-//   const urlWeather = `http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`;
-
-//   const urlCountryCity = `https://us1.locationiq.com/v1/reverse.php?key=${process.env.REACT_APP_API_LOCATION_KEY}&lat=${latitude}&lon=${longitude}&format=json`;
-
-//   dispatch({ type: GET_WEATHER_LOADING });
-
-//   try {
-//     const [weather, countryCity] = await Promise.all([
-//       fetch(urlWeather).then((response) => response.json()),
-//       fetch(urlCountryCity).then((response) => response.json()),
-//     ]);
-
-//     dispatch({
-//       type: GET_WEATHER,
-//       payload: {
-//         weather,
-//         countryCity,
-//       },
-//     });
-//   } catch (err) {
-//     dispatch({ type: GET_WEATHER_ERROR, payload: err });
-//   }
-// };
