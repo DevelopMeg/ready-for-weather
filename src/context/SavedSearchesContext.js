@@ -17,7 +17,7 @@ export const SavedSearchesContext = createContext();
 
 const SavedSearchesProvider = ({ children }) => {
   const { geographicData } = useContext(DataFetchContext);
-  const { latitude, longitude, searchCity } = geographicData;
+  const { latitude, longitude, searchCity, countryCity } = geographicData;
 
   const initialState = {
     savedSearches: [],
@@ -39,6 +39,7 @@ const SavedSearchesProvider = ({ children }) => {
     latitude,
     longitude,
     searchCity,
+    countryCity,
     id: nanoid(),
   };
 

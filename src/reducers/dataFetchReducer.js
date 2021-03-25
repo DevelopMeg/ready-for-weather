@@ -24,13 +24,9 @@ export const dataFetchReducer = (state, action) => {
       return {
         ...state,
         weatherInfo: {
-          weather: action.payload.weather,
+          weather: action.payload,
           loadingWeather: false,
           errorWeather: false,
-        },
-        geographicData: {
-          ...state.geographicData,
-          countryCity: action.payload.country,
         },
       };
 
@@ -77,8 +73,8 @@ export const dataFetchReducer = (state, action) => {
       return {
         ...state,
         geographicData: {
-          ...state.geographicData,
           searchCity: action.payload.searchCity,
+          countryCity: action.payload.countryCity,
           latitude: action.payload.latitude,
           longitude: action.payload.longitude,
           errorGeographicData: "",

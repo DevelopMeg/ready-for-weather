@@ -66,12 +66,16 @@ const DataFetchProvider = ({ children }) => {
       const data = await response.json();
 
       if (response.ok) {
+        const idComma = data[0].display_name.lastIndexOf(",");
+        const countryCity = data[0].display_name.slice(idComma + 2);
+
         dispatch({
           type: GET_GEOGRAPHIC_DATA,
           payload: {
             latitude: data[0].lat,
             longitude: data[0].lon,
             searchCity,
+            countryCity,
           },
         });
       } else {
@@ -93,23 +97,17 @@ const DataFetchProvider = ({ children }) => {
   };
 
   const getWeatherData = async () => {
-    const urlWeather = `http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`;
-
-    const urlCountryCity = `https://us1.locationiq.com/v1/reverse.php?key=${process.env.REACT_APP_API_LOCATION_KEY}&lat=${latitude}&lon=${longitude}&format=json`;
+    const url = `http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`;
 
     dispatch({ type: GET_WEATHER_LOADING });
 
     try {
-      const [weather, countryCity] = await Promise.all([
-        fetch(urlWeather).then((response) => response.json()),
-        fetch(urlCountryCity).then((response) => response.json()),
-      ]);
+      const response = await fetch(url);
+      const data = await response.json();
 
-      const country = countryCity.address.country;
-
-      dispatch({ type: GET_WEATHER, payload: { weather, country } });
+      dispatch({ type: GET_WEATHER, payload: data });
     } catch (err) {
-      dispatch({ type: GET_WEATHER_ERROR, payload: err });
+      dispatch({ type: GET_WEATHER_ERROR });
     }
   };
 
@@ -128,7 +126,7 @@ const DataFetchProvider = ({ children }) => {
   };
 
   const setGeographicData = (search) => {
-    const { latitude, longitude, searchCity } = search;
+    const { latitude, longitude, searchCity, countryCity } = search;
 
     dispatch({
       type: SET_GEOGRAPHIC_DATA,
@@ -136,6 +134,7 @@ const DataFetchProvider = ({ children }) => {
         latitude,
         longitude,
         searchCity,
+        countryCity,
       },
     });
   };
