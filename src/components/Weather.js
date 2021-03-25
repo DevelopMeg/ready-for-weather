@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import WeatherDayInfo from "components/WeatherDayInfo";
 import WeatherWeekInfo from "components/WeatherWeekInfo";
-
-import { DataFetchContext } from "context/DataFetchContext";
 
 import styled from "styled-components";
 
@@ -17,17 +15,12 @@ const WeatherBox = styled.div`
 `;
 
 const Weather = () => {
-  const { geographicData } = useContext(DataFetchContext);
-  const errFoundCity = geographicData.errorGeographicData;
-
   return (
     <>
-      {!errFoundCity ? (
-        <WeatherBox>
-          <WeatherDayInfo />
-          <WeatherWeekInfo />
-        </WeatherBox>
-      ) : null}
+      <WeatherBox>
+        <WeatherDayInfo />
+        <WeatherWeekInfo />
+      </WeatherBox>
     </>
   );
 };

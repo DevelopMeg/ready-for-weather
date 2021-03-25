@@ -52,7 +52,9 @@ const ImageAside = styled.aside`
 `;
 
 const WeatherPage = () => {
-  const { weatherInfo } = useContext(DataFetchContext);
+  const { weatherInfo, geographicData } = useContext(DataFetchContext);
+
+  const errFoundCity = geographicData.errorGeographicData;
 
   const { loadingWeather, errorWeather } = weatherInfo;
 
@@ -62,11 +64,13 @@ const WeatherPage = () => {
       {loadingWeather ? (
         <LoaderSun />
       ) : !errorWeather ? (
-        <WeatherPageBox>
-          <ImageAside />
-          <Weather />
-          <SavedSearches />
-        </WeatherPageBox>
+        !errFoundCity ? (
+          <WeatherPageBox>
+            <ImageAside />
+            <Weather />
+            <SavedSearches />
+          </WeatherPageBox>
+        ) : null
       ) : (
         <ErrorDownloadData>data download error</ErrorDownloadData>
       )}

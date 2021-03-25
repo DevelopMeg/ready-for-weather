@@ -29,7 +29,7 @@ const Footer = () => {
       <FooterText margin>DevelopMeg 2021 &copy; All right reserved</FooterText>
       <FooterText>
         photos by <FooterLink href="https://unsplash.com/">Unsplash</FooterLink>{" "}
-        &amp; loader icon by{" "}
+        &amp; svg icons by{" "}
         <FooterLink href="https://www.freepik.com">Freepik</FooterLink>
       </FooterText>
     </FooterBox>

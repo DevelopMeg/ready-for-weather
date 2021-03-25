@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 
 import { DataFetchContext } from "context/DataFetchContext";
 
@@ -63,16 +63,8 @@ const Header = () => {
 
   const { getPollutionData } = useContext(DataFetchContext);
 
-  const [statusPolution, setStatusPolution] = useState(false);
-
-  useEffect(() => {
-    if (statusPolution) {
-      getPollutionData();
-    }
-  }, [statusPolution]);
-
   const handleGetPollution = () => {
-    setStatusPolution(true);
+    getPollutionData();
     history.push("/air-pollution");
   };
 

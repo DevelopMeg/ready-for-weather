@@ -9,11 +9,11 @@ import { ErrorDownloadData } from "components/GlobalStyles";
 
 const PollutionInfo = () => {
   const { pollutionInfo } = useContext(DataFetchContext);
-  const err = pollutionInfo.errorPollution;
+  const errorPollution = pollutionInfo.errorPollution;
 
   return (
     <>
-      {!err ? (
+      {!errorPollution ? (
         <>
           <PollutionName />
           <PollutionRates />
