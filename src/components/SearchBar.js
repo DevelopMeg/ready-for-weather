@@ -1,13 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 
+import SearchAutosuggestion from "./SearchAutosuggestion";
+
 import { DataFetchContext } from "context/DataFetchContext";
 
 import { useHistory } from "react-router-dom";
 
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 import { FontAwesomeIcon } from "../../node_modules/@fortawesome/react-fontawesome";
-import { faSearch } from "../../node_modules/@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+  faTimes,
+} from "../../node_modules/@fortawesome/free-solid-svg-icons";
 
 const SearchForm = styled.form`
   box-shadow: ${(props) => (props.error ? "0 0 8px 1px #e24444" : null)};
@@ -15,6 +20,7 @@ const SearchForm = styled.form`
   margin: ${(props) => (props.page === "weather-page" ? "0px auto 40px" : 0)};
 
   display: flex;
+  position: relative;
   border-radius: 4px;
 
   @media (min-width: 1024px) {
@@ -40,6 +46,10 @@ const SearchInput = styled.input`
     box-shadow: none;
   }
 
+  :disabled {
+    background-color: #d7dfe6;
+  }
+
   @media (min-width: 1024px) {
     padding: 20px 28px;
     border-right: 2px solid #cecece;
@@ -54,10 +64,12 @@ const SearchInput = styled.input`
 
 const SearchBtn = styled.button`
   border: 2px solid #cecece;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-basis: 15%;
   border-radius: 0 4px 4px 0;
   background-color: #fff;
-  color: #9e9e9e;
 
   @media (min-width: 1024px) {
     flex-basis: 8%;
@@ -65,15 +77,74 @@ const SearchBtn = styled.button`
   }
 
   @media (min-width: 1400px) {
-    font-size: 2.2rem;
+    font-size: 2.4rem;
+  }
+`;
+
+const animateLoupe = keyframes`
+  0% {
+    transform: scale(0.8);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.2);
+  }
+`;
+
+const IconLoupe = styled(FontAwesomeIcon)`
+  color: ${(props) => (props.statusChooseSuggestion ? "#4780cd" : "#9e9e9e")};
+  animation: ${(props) =>
+    props.statusChooseSuggestion
+      ? css`
+          ${animateLoupe} 0.7s linear infinite alternate
+        `
+      : null};
+`;
+
+const IconCloseBox = styled.div`
+  color: ${(props) => (props.statusChooseSuggestion ? "#4780cd" : "#9e9e9e")};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20%;
+  font-size: 2rem;
+
+  @media (min-width: 1024px) {
+    right: 11%;
+    font-size: 2.5rem;
+    cursor: pointer;
+  }
+
+  @media (min-width: 1100px) {
+    font-size: 2.6rem;
   }
 `;
 
 const SearchError = styled.p`
+  text-align: ${(props) =>
+    props.page === "weather-page" ? "center" : "unset"};
+
+  margin: 18px 0 0;
   color: #ff1616;
   text-transform: uppercase;
   font-weight: 600;
   text-shadow: 1px 1px 5px #fff;
+
+  @media (min-width: 1100px) {
+    font-size: 1.8rem;
+  }
+
+  @media (min-width: 1600px) {
+    font-size: 2rem;
+  }
 `;
 
 const SearchBar = ({ page }) => {
@@ -84,14 +155,30 @@ const SearchBar = ({ page }) => {
   );
   const { latitude, longitude, errorGeographicData } = geographicData;
 
-  const [valueSearchCity, setValueSearchCity] = useState("");
+  const localSearchCity = localStorage.getItem("valueSearchCity");
+  const localStatusSuggestion = JSON.parse(
+    localStorage.getItem("statusChooseSuggestion")
+  );
+
+  const [valueSearchCity, setValueSearchCity] = useState(localSearchCity || "");
   const [statusSearch, setStatusSearch] = useState(false);
+  const [statusChooseSuggestion, setStatusChooseSuggestion] = useState(
+    localStatusSuggestion || false
+  );
+
+  useEffect(() => {
+    localStorage.setItem("valueSearchCity", valueSearchCity);
+    localStorage.setItem(
+      "statusChooseSuggestion",
+      JSON.stringify(statusChooseSuggestion)
+    );
+  }, [valueSearchCity, statusChooseSuggestion]);
 
   useEffect(() => {
     if (errorGeographicData) {
       setStatusSearch(false);
     }
-  }, [errorGeographicData]);
+  }, [statusSearch, errorGeographicData]);
 
   useEffect(() => {
     if (statusSearch) {
@@ -107,12 +194,23 @@ const SearchBar = ({ page }) => {
       setStatusSearch(false);
       setValueSearchCity("");
       history.push("/weather");
+      setStatusChooseSuggestion(false);
     }
   }, [latitude, longitude]);
 
   const handleSearchWeather = (e) => {
     e.preventDefault();
     setStatusSearch(true);
+  };
+
+  const handleGetSuggestion = (cityName) => {
+    setValueSearchCity(cityName);
+    setStatusChooseSuggestion(true);
+  };
+
+  const handleClearValueSearchCity = () => {
+    setValueSearchCity("");
+    setStatusChooseSuggestion(false);
   };
 
   return (
@@ -127,15 +225,31 @@ const SearchBar = ({ page }) => {
           placeholder="Enter your city"
           value={valueSearchCity}
           onChange={(e) => setValueSearchCity(e.target.value)}
+          disabled={statusChooseSuggestion}
           required
         />
-
         <SearchBtn type="submit">
-          <FontAwesomeIcon icon={faSearch} />
+          <IconLoupe
+            icon={faSearch}
+            statusChooseSuggestion={statusChooseSuggestion}
+          />
         </SearchBtn>
+
+        <IconCloseBox
+          onClick={handleClearValueSearchCity}
+          statusChooseSuggestion={statusChooseSuggestion}
+        >
+          <FontAwesomeIcon icon={faTimes} />
+        </IconCloseBox>
+
+        <SearchAutosuggestion
+          valueSearchCity={valueSearchCity}
+          handleGetSuggestion={handleGetSuggestion}
+          statusChooseSuggestion={statusChooseSuggestion}
+        />
       </SearchForm>
       {errorGeographicData ? (
-        <SearchError>{errorGeographicData}</SearchError>
+        <SearchError page={page}>{errorGeographicData}</SearchError>
       ) : null}
     </>
   );
