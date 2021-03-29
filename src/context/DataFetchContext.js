@@ -97,7 +97,7 @@ const DataFetchProvider = ({ children }) => {
   };
 
   const getWeatherData = async () => {
-    const url = `http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`;
+    const url = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=minutely,hourly&units=metric&appid=${process.env.REACT_APP_API_WEATHER_KEY}`;
 
     dispatch({ type: GET_WEATHER_LOADING });
 
@@ -112,7 +112,7 @@ const DataFetchProvider = ({ children }) => {
   };
 
   const getPollutionData = async () => {
-    const url = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_WEATHER_KEY}`;
+    const url = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_WEATHER_KEY}`;
 
     dispatch({ type: GET_POLLUTION_LOADING });
     try {
