@@ -6,6 +6,9 @@ import { DataFetchContext } from "context/DataFetchContext";
 
 import { useHistory } from "react-router-dom";
 
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+
 import styled, { css, keyframes } from "styled-components";
 
 import { FontAwesomeIcon } from "../../node_modules/@fortawesome/react-fontawesome";
@@ -96,7 +99,10 @@ const animateLoupe = keyframes`
 `;
 
 const IconLoupe = styled(FontAwesomeIcon)`
-  color: ${(props) => (props.statusChooseSuggestion ? "#4780cd" : "#9e9e9e")};
+  color: ${(props) =>
+    props.statusChooseSuggestion || props.valueSearchCity
+      ? "#4780cd"
+      : "#9e9e9e"};
   animation: ${(props) =>
     props.statusChooseSuggestion
       ? css`
@@ -106,7 +112,10 @@ const IconLoupe = styled(FontAwesomeIcon)`
 `;
 
 const IconCloseBox = styled.div`
-  color: ${(props) => (props.statusChooseSuggestion ? "#4780cd" : "#9e9e9e")};
+  color: ${(props) =>
+    props.statusChooseSuggestion || props.valueSearchCity
+      ? "#4780cd"
+      : "#9e9e9e"};
 
   display: flex;
   justify-content: center;
@@ -185,6 +194,21 @@ const SearchBar = ({ page }) => {
       const searchCity = valueSearchCity.toLowerCase();
 
       getGeographicData(searchCity);
+
+      if (geographicData.searchCity === valueSearchCity.toLowerCase()) {
+        setStatusSearch(false);
+        setStatusChooseSuggestion(false);
+        setValueSearchCity("");
+
+        confirmAlert({
+          title: "You are looking for the same city, try again",
+          buttons: [
+            {
+              label: "ok",
+            },
+          ],
+        });
+      }
     }
   }, [statusSearch]);
 
@@ -232,12 +256,14 @@ const SearchBar = ({ page }) => {
           <IconLoupe
             icon={faSearch}
             statusChooseSuggestion={statusChooseSuggestion}
+            valueSearchCity={valueSearchCity}
           />
         </SearchBtn>
 
         <IconCloseBox
           onClick={handleClearValueSearchCity}
           statusChooseSuggestion={statusChooseSuggestion}
+          valueSearchCity={valueSearchCity}
         >
           <FontAwesomeIcon icon={faTimes} />
         </IconCloseBox>

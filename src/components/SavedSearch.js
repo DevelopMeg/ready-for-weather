@@ -3,7 +3,12 @@ import React, { useContext } from "react";
 import { DataFetchContext } from "context/DataFetchContext";
 import { SavedSearchesContext } from "context/SavedSearchesContext";
 
+import { useLocation } from "react-router-dom";
+
 import { clearSearchDiacriticSpace } from "utils/utils";
+
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 import styled from "styled-components";
 
@@ -11,9 +16,10 @@ import { FontAwesomeIcon } from "../../node_modules/@fortawesome/react-fontaweso
 import {
   faPlus,
   faTrash,
+  faCity,
 } from "../../node_modules/@fortawesome/free-solid-svg-icons";
 
-const SaveSearchItem = styled.li`
+const SavedSearchItem = styled.li`
   margin: 18px 0;
   width: 70px;
   height: 115px;
@@ -26,6 +32,7 @@ const SaveSearchItem = styled.li`
   ::after {
     content: "";
     position: absolute;
+    left: 0;
     width: 70px;
     height: 115px;
     border-radius: 30%;
@@ -40,7 +47,7 @@ const SaveSearchItem = styled.li`
   }
 `;
 
-const DeleteSaveSearch = styled.span`
+const DeleteSavedSearch = styled.span`
   position: absolute;
   top: 10px;
   left: 50%;
@@ -53,7 +60,7 @@ const DeleteSaveSearch = styled.span`
   }
 `;
 
-const SaveSearchTextBox = styled.div`
+const SavedSearchTextBox = styled.div`
   padding: 20px 10px;
   position: absolute;
   top: 50%;
@@ -68,7 +75,7 @@ const SaveSearchTextBox = styled.div`
   }
 `;
 
-const SaveSearchText = styled.span`
+const SavedSearchText = styled.span`
   word-wrap: break-word;
   text-transform: uppercase;
   font-size: 1.5rem;
@@ -78,7 +85,7 @@ const SaveSearchText = styled.span`
   }
 `;
 
-const AddSaveSearch = styled.span`
+const AddSavedSearch = styled.span`
   font-size: 2rem;
 
   @media (min-width: 1024px) {
@@ -87,6 +94,8 @@ const AddSaveSearch = styled.span`
 `;
 
 const SavedSearch = ({ search }) => {
+  const path = useLocation().pathname;
+
   const { geographicData, setGeographicData } = useContext(DataFetchContext);
   const searchCity = geographicData.searchCity;
 
@@ -109,7 +118,14 @@ const SavedSearch = ({ search }) => {
     if (openSavedSearch) {
       saveSearch();
     } else {
-      window.alert(`Already save ${searchCity}`);
+      confirmAlert({
+        title: `Already saved search - ${searchCity.toUpperCase()}`,
+        buttons: [
+          {
+            label: "ok",
+          },
+        ],
+      });
     }
   };
 
@@ -125,25 +141,37 @@ const SavedSearch = ({ search }) => {
   };
 
   return (
-    <SaveSearchItem>
-      {search ? (
-        <DeleteSaveSearch onClick={handleDeleteSearch}>
+    <SavedSearchItem>
+      {search && path !== "/" ? (
+        <DeleteSavedSearch onClick={handleDeleteSearch}>
           <FontAwesomeIcon icon={faTrash} />
-        </DeleteSaveSearch>
+        </DeleteSavedSearch>
       ) : null}
 
-      <SaveSearchTextBox
-        onClick={search ? handleOpenSaveSearch : handleSaveSearch}
-      >
-        {search ? (
-          <SaveSearchText>{search.searchCity}</SaveSearchText>
-        ) : (
-          <AddSaveSearch>
-            <FontAwesomeIcon icon={faPlus} />
-          </AddSaveSearch>
-        )}
-      </SaveSearchTextBox>
-    </SaveSearchItem>
+      {path !== "/" ? (
+        <SavedSearchTextBox
+          onClick={search ? handleOpenSaveSearch : handleSaveSearch}
+        >
+          {search ? (
+            <SavedSearchText>{search.searchCity}</SavedSearchText>
+          ) : (
+            <AddSavedSearch>
+              <FontAwesomeIcon icon={faPlus} />
+            </AddSavedSearch>
+          )}
+        </SavedSearchTextBox>
+      ) : (
+        <SavedSearchTextBox onClick={search ? handleOpenSaveSearch : null}>
+          {search ? (
+            <SavedSearchText>{search.searchCity}</SavedSearchText>
+          ) : (
+            <AddSavedSearch>
+              <FontAwesomeIcon icon={faCity} />
+            </AddSavedSearch>
+          )}
+        </SavedSearchTextBox>
+      )}
+    </SavedSearchItem>
   );
 };
 
