@@ -100,11 +100,9 @@ const animateLoupe = keyframes`
 
 const IconLoupe = styled(FontAwesomeIcon)`
   color: ${(props) =>
-    props.statusChooseSuggestion || props.valueSearchCity
-      ? "#4780cd"
-      : "#9e9e9e"};
+    props.choosesuggestion || props.valuesearchcity ? "#4780cd" : "#9e9e9e"};
   animation: ${(props) =>
-    props.statusChooseSuggestion
+    props.choosesuggestion
       ? css`
           ${animateLoupe} 0.7s linear infinite alternate
         `
@@ -255,8 +253,8 @@ const SearchBar = ({ page }) => {
         <SearchBtn type="submit">
           <IconLoupe
             icon={faSearch}
-            statusChooseSuggestion={statusChooseSuggestion}
-            valueSearchCity={valueSearchCity}
+            choosesuggestion={statusChooseSuggestion ? 1 : 0}
+            valuesearchcity={valueSearchCity}
           />
         </SearchBtn>
 
