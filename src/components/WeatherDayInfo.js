@@ -200,7 +200,7 @@ const WeatherDayInfo = () => {
           <p>
             <FontAwesomeIcon icon={faCloudRain} />
             <WeatherInfoText>rain:</WeatherInfoText>
-            {rain["1h"]} mm
+            {rain["1h"].toFixed(3)} mm
           </p>
         ) : (
           <p>
