@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.js": "/ready-for-weather/static/js/main.e55b32ac.chunk.js",
+    "main.js.map": "/ready-for-weather/static/js/main.e55b32ac.chunk.js.map",
+    "runtime-main.js": "/ready-for-weather/static/js/runtime-main.a7b646b5.js",
+    "runtime-main.js.map": "/ready-for-weather/static/js/runtime-main.a7b646b5.js.map",
+    "static/css/2.e612a0d8.chunk.css": "/ready-for-weather/static/css/2.e612a0d8.chunk.css",
+    "static/js/2.f8d98956.chunk.js": "/ready-for-weather/static/js/2.f8d98956.chunk.js",
+    "static/js/2.f8d98956.chunk.js.map": "/ready-for-weather/static/js/2.f8d98956.chunk.js.map",
+    "index.html": "/ready-for-weather/index.html",
+    "static/css/2.e612a0d8.chunk.css.map": "/ready-for-weather/static/css/2.e612a0d8.chunk.css.map",
+    "static/js/2.f8d98956.chunk.js.LICENSE.txt": "/ready-for-weather/static/js/2.f8d98956.chunk.js.LICENSE.txt",
+    "static/media/image-aside.0d9dccd1.jpg": "/ready-for-weather/static/media/image-aside.0d9dccd1.jpg",
+    "static/media/image-btn-pollution.95ea21a3.jpg": "/ready-for-weather/static/media/image-btn-pollution.95ea21a3.jpg",
+    "static/media/image-pollution-page.07bc76e9.jpg": "/ready-for-weather/static/media/image-pollution-page.07bc76e9.jpg",
+    "static/media/loader-sun.7d1e1b01.svg": "/ready-for-weather/static/media/loader-sun.7d1e1b01.svg",
+    "static/media/main-image-homepage.56f50564.jpg": "/ready-for-weather/static/media/main-image-homepage.56f50564.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a7b646b5.js",
+    "static/css/2.e612a0d8.chunk.css",
+    "static/js/2.f8d98956.chunk.js",
+    "static/js/main.e55b32ac.chunk.js"
+  ]
+}
