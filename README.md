@@ -1,5 +1,7 @@
 # ready-for-weather
 
+> This is my the newest and the best project, which contain all aspects I learned from feedback, which received after complete the recruitment task.
+
 #### This is an application, which let check weather
 
 Link: https://developmeg.github.io/ready-for-weather/
