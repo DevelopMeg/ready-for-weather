@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "../../node_modules/@fortawesome/react-fontawesome";
 import { faSmog } from "../../node_modules/@fortawesome/free-solid-svg-icons";
 
-const TitlePollutionName = styled.h4`
+const TitlePollutionName = styled.h3`
   display: flex;
   align-items: center;
   justify-content: center;

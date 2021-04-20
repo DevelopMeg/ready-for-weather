@@ -20,6 +20,8 @@ const MainTitleLogo = styled.h1`
 const Logo = styled.img`
   margin: 0 auto;
   display: block;
+  height: 100px;
+  width: 300px;
   max-width: 100%;
 `;
 

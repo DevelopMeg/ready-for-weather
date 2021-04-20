@@ -36,7 +36,7 @@ const ComeBackBtn = styled.button`
   }
 `;
 
-const TitlePollutionPage = styled.h3`
+const TitlePollutionPage = styled.h2`
   margin: 50px auto;
   text-transform: uppercase;
   text-align: center;
@@ -67,7 +67,7 @@ const PollutionPage = () => {
 
   return (
     <SectionPollutionPage>
-      <ComeBackBtn onClick={() => history.goBack()}>
+      <ComeBackBtn aria-label="come back" onClick={() => history.goBack()}>
         <FontAwesomeIcon icon={faLongArrowAltLeft} />
       </ComeBackBtn>
 

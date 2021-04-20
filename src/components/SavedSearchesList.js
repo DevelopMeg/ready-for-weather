@@ -139,6 +139,7 @@ const SavedSearchesList = ({ page }) => {
     <>
       <SavedSearchesBtnBox page={page}>
         <SavedSearchesBtn
+          aria-label="scroll-searches-to-top"
           onClick={() => setListPositionToTop()}
           disabled={searchListPosition === 0}
         >
@@ -154,6 +155,7 @@ const SavedSearchesList = ({ page }) => {
 
       <SavedSearchesBtnBox>
         <SavedSearchesBtn
+          aria-label="scroll-searches-to-bottom"
           onClick={() => setListPositionToBottom()}
           disabled={
             savedSearches.length < defaultShowSearches || statusLastItem

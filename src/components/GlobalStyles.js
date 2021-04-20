@@ -48,7 +48,7 @@ export const ErrorDownloadData = styled.p`
   }
 `;
 
-export const WeatherDescription = styled.h5`
+export const WeatherDescription = styled.h4`
   margin: 35px auto;
   position: relative;
   text-transform: uppercase;

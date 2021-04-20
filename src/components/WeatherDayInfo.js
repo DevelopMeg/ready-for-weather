@@ -43,7 +43,7 @@ const SectionWeatherDay = styled.section`
   }
 `;
 
-const SearchCity = styled.h3`
+const SearchCity = styled.h2`
   margin-top: 36px;
   text-align: center;
   text-transform: uppercase;
@@ -78,7 +78,7 @@ const WeatherInfoBox = styled.section`
   }
 `;
 
-const CurrentTemp = styled.h4`
+const CurrentTemp = styled.h3`
   margin: 30px 0;
   font-size: 3.6rem;
   text-align: center;

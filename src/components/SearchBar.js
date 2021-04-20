@@ -250,7 +250,7 @@ const SearchBar = ({ page }) => {
           disabled={statusChooseSuggestion}
           required
         />
-        <SearchBtn type="submit">
+        <SearchBtn aria-label="search" type="submit">
           <IconLoupe
             icon={faSearch}
             choosesuggestion={statusChooseSuggestion ? 1 : 0}

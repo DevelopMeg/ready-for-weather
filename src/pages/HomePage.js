@@ -143,6 +143,11 @@ const HomePage = () => {
 
   return (
     <SectionHomePage>
+      <HomePageBox>
+        <TitleHomePage>Check weather for selected city</TitleHomePage>
+        <SearchBar page="home-page" />
+      </HomePageBox>
+
       <CloudSavedSearches>
         <TitleCloudSaveSearches onClick={handleOpenCloudSavedSearches}>
           saved searches
@@ -151,7 +156,10 @@ const HomePage = () => {
 
       {window.innerWidth < 1100 ? (
         <BgBoxSavedSearches openCloudSavedSearches={openCloudSavedSearches}>
-          <CloseSavedSearches onClick={handleOpenCloudSavedSearches}>
+          <CloseSavedSearches
+            aria-label="close"
+            onClick={handleOpenCloudSavedSearches}
+          >
             <FontAwesomeIcon icon={faTimes} />
           </CloseSavedSearches>
 
@@ -166,11 +174,6 @@ const HomePage = () => {
           <SavedSearchesList page="homePage" />
         </BoxSavedSearchesDesktop>
       )}
-
-      <HomePageBox>
-        <TitleHomePage>Check weather for selected city</TitleHomePage>
-        <SearchBar page="home-page" />
-      </HomePageBox>
     </SectionHomePage>
   );
 };

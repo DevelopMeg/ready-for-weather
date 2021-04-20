@@ -42,7 +42,7 @@ const SectionWeatherDayOfWeek = styled.section`
   }
 `;
 
-const NameOfDay = styled.h4`
+const NameOfDay = styled.h3`
   margin: 0;
   text-transform: uppercase;
   font-size: 1.8rem;
@@ -93,6 +93,8 @@ const WeatherDayOfWeekInfo = ({ dayOfWeek }) => {
       <img
         src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
         alt="weather icon"
+        width="100"
+        height="100"
       />
 
       <WeatherDescriptionWeek>{description}</WeatherDescriptionWeek>
