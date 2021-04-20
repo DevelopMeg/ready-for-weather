@@ -10,6 +10,7 @@ import { DataFetchContext } from "context/DataFetchContext";
 import styled from "styled-components";
 import { ErrorDownloadData } from "components/GlobalStyles";
 
+import minImageAside from "assets/image-aside_min.jpg";
 import imageAside from "assets/image-aside.jpg";
 
 const SectionWeatherPage = styled.section`
@@ -37,13 +38,14 @@ const WeatherPageBox = styled.div`
 
 const ImageAside = styled.aside`
   height: 100px;
-  background-image: url(${imageAside});
+  background-image: url(${minImageAside});
   background-size: cover;
   background-position: 95%;
 
   @media (min-width: 1024px) {
     height: auto;
     flex-basis: 10%;
+    background-image: url(${imageAside});
   }
 
   @media (min-width: 1100px) {

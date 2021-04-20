@@ -5,6 +5,7 @@ import SavedSearchesList from "components/SavedSearchesList";
 
 import styled from "styled-components";
 
+import minMainImage from "assets/main-image-homepage_min.jpg";
 import mainImage from "assets/main-image-homepage.jpg";
 import cloudImage from "assets/cloud.png";
 
@@ -17,8 +18,12 @@ const SectionHomePage = styled.section`
   align-items: center;
   position: relative;
   width: 100%;
-  background-image: url(${mainImage});
+  background-image: url(${minMainImage});
   background-size: cover;
+
+  @media (min-width: 1024px) {
+    background-image: url(${mainImage});
+  }
 `;
 
 const BgBoxSavedSearches = styled.div`

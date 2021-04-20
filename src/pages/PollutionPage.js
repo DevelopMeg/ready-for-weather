@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 
 import styled from "styled-components";
 
+import minImagePollutionPage from "assets/image-pollution-page_min.jpg";
 import imagePollutionPage from "assets/image-pollution-page.jpg";
 
 import { FontAwesomeIcon } from "../../node_modules/@fortawesome/react-fontawesome";
@@ -17,8 +18,12 @@ import { faLongArrowAltLeft } from "../../node_modules/@fortawesome/free-solid-s
 const SectionPollutionPage = styled.section`
   padding-top: 10px;
   width: 100%;
-  background-image: url(${imagePollutionPage});
+  background-image: url(${minImagePollutionPage});
   background-size: cover;
+
+  @media (min-width: 1024px) {
+    background-image: url(${imagePollutionPage});
+  }
 `;
 
 const ComeBackBtn = styled.button`
