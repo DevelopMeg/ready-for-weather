@@ -19,6 +19,7 @@ const SuggestionsList = styled.ul`
 `;
 
 const SuggestionItem = styled.li`
+  background-color: ${(props) => (props.active ? "#f0f3f7" : "#fff")};
   padding: 10px 16px;
 
   :hover {
@@ -53,11 +54,13 @@ const SuggestionItem = styled.li`
 
 const SearchAutosuggestion = ({
   valueSearchCity,
-  handleGetSuggestion,
   statusChooseSuggestion,
+  suggestions,
+  setSuggestions,
+  keyboardPosition,
+  handleChooseSuggestion,
 }) => {
   const [citiesData, setCitiesData] = useState([]);
-  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     const getSuggestions = async () => {
@@ -96,16 +99,12 @@ const SearchAutosuggestion = ({
     }
   }, [valueSearchCity, statusChooseSuggestion]);
 
-  const handleChooseSuggestion = (suggestion) => {
-    handleGetSuggestion(suggestion.name);
-    setSuggestions([]);
-  };
-
-  const suggestionsList = suggestions.map((suggestion) => {
+  const suggestionsList = suggestions.map((suggestion, id) => {
     return (
       <SuggestionItem
         key={suggestion.geonameid}
         onClick={() => handleChooseSuggestion(suggestion)}
+        active={keyboardPosition === id}
       >
         {suggestion.name}, {suggestion.country}
       </SuggestionItem>

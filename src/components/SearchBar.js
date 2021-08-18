@@ -157,9 +157,8 @@ const SearchError = styled.p`
 const SearchBar = ({ page }) => {
   const history = useHistory();
 
-  const { geographicData, getWeatherData, getGeographicData } = useContext(
-    DataFetchContext
-  );
+  const { geographicData, getWeatherData, getGeographicData } =
+    useContext(DataFetchContext);
   const { latitude, longitude, errorGeographicData } = geographicData;
 
   const localSearchCity = localStorage.getItem("valueSearchCity");
@@ -172,6 +171,8 @@ const SearchBar = ({ page }) => {
   const [statusChooseSuggestion, setStatusChooseSuggestion] = useState(
     localStatusSuggestion || false
   );
+  const [keyboardPosition, setKeyboardPosition] = useState(0);
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("valueSearchCity", valueSearchCity);
@@ -230,6 +231,21 @@ const SearchBar = ({ page }) => {
     setStatusChooseSuggestion(true);
   };
 
+  const handleChooseSuggestion = (suggestion) => {
+    handleGetSuggestion(suggestion.name);
+    setSuggestions([]);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 38 && keyboardPosition > 0) {
+      setKeyboardPosition((prev) => prev - 1);
+    } else if (e.keyCode === 40 && keyboardPosition < suggestions.length - 1) {
+      setKeyboardPosition((prev) => prev + 1);
+    } else if (e.keyCode === 13) {
+      handleChooseSuggestion(suggestions[keyboardPosition]);
+    }
+  };
+
   const handleClearValueSearchCity = () => {
     setValueSearchCity("");
     setStatusChooseSuggestion(false);
@@ -247,6 +263,7 @@ const SearchBar = ({ page }) => {
           placeholder="Enter your city"
           value={valueSearchCity}
           onChange={(e) => setValueSearchCity(e.target.value)}
+          onKeyDown={handleKeyDown}
           disabled={statusChooseSuggestion}
           required
         />
@@ -268,8 +285,11 @@ const SearchBar = ({ page }) => {
 
         <SearchAutosuggestion
           valueSearchCity={valueSearchCity}
-          handleGetSuggestion={handleGetSuggestion}
           statusChooseSuggestion={statusChooseSuggestion}
+          suggestions={suggestions}
+          setSuggestions={setSuggestions}
+          keyboardPosition={keyboardPosition}
+          handleChooseSuggestion={handleChooseSuggestion}
         />
       </SearchForm>
       {errorGeographicData ? (
