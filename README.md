@@ -1,6 +1,6 @@
 # ready-for-weather
 
-> This is my the newest and the best project, which contain all aspects I learned from feedback, which received after complete the recruitment task.
+>  This is my old project, but shows progress of my skills
 
 #### This is an application, which let check weather
 
